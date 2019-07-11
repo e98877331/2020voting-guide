@@ -4,7 +4,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import NavigateBefore from '@material-ui/icons/NavigateBefore';
-import SmallCard from '../public-child/SmallCard'
+import SmallCard from '../public-child/SmallCard';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -46,33 +46,34 @@ const ConstituencyPage: React.FunctionComponent<County> = ({ match }) => {
     const constituencyNames = Object.keys(constituencyArea).filter(
         constituency => constituency.startsWith(county)
     );
+    const classes = useStyles();
     return (
         <>
-            {constituencyNames.map(name => (
-                <ConstituencyCard name={name} key={name} />
-            ))}
+            <div className={classes.title}>
+                <Link to={`/regionals`}>
+                    <NavigateBefore />
+                </Link>
+                <div>選區找立委</div>
+            </div>
+            <Grid container>
+                {constituencyNames.map(name => (
+                    <ConstituencyCard name={name} key={name} />
+                ))}
+            </Grid>
         </>
     );
 };
 
 const ConstituencyCard: React.FunctionComponent<Constituency> = ({ name }) => {
-    const classes = useStyles();
+    const area = Object.keys(constituencyArea[name]).join('、');
     return (
         <>
-            <div className={classes.title}>
-                <Link to={`/regionals`}><NavigateBefore /></Link>
-                <div>選區找立委</div>
-            </div>
-            <Grid container>
-
-                {
-                    Object.keys(constituencyArea[name]).map(area => {
-                        return (
-                            < Grid item xs={6} key={area}>
-                                <SmallCard target={`/regionals/${name.slice(0, 3)}/${area}`} name={area}></SmallCard>
-                            </Grid>
-                        )
-                    })}
+            <Grid item xs={6} key={area}>
+                <SmallCard
+                    target={`/regionals/${name.slice(0, 3)}/${area}`}
+                    title={name}
+                    subtitle={area}
+                ></SmallCard>
             </Grid>
         </>
     );

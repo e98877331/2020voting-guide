@@ -21,7 +21,6 @@ const useStyles = makeStyles({
 const counties = countyConstituency.map(county => county.name);
 const Constituency = () => {
     const classes = useStyles();
-
     return (
         <>
             <div className={classes.title}>選區找立委</div>

@@ -4,7 +4,7 @@ import MediaQuery from 'react-responsive';
 import { NavLink, Route, Switch, Link } from 'react-router-dom';
 import './App.scss';
 import Home from './components/Home';
-// import CountyCandidates from './components/CountyCandidates/CountyCandidates';
+import CountyCandidates from './components/CountyCandidates/CountyCandidates';
 import ConstituencyPage from './components/ConstituencyDistrict/Constituency';
 import County from './components/CountyConstituency/County';
 import './static/style/button.scss';
@@ -67,7 +67,11 @@ class App extends React.Component<{}, State> {
                                 path="/regionals/:county"
                                 component={ConstituencyPage}
                             />
-                            <Route exact path="/regionals/:county/:district" component={LegislatorList} />
+                            <Route
+                                exact
+                                path="/regionals/:county/:district"
+                                component={CountyCandidates}
+                            />
                         </Switch>
                     </Row>
                 </Row>
@@ -78,7 +82,9 @@ class App extends React.Component<{}, State> {
                     onClose={this.onClose}
                     visible={this.state.visible}
                 >
-                    <p><Link to="/regionals">比較區域立委</Link></p>
+                    <p>
+                        <Link to="/regionals">比較區域立委</Link>
+                    </p>
                     <p>Some contents...</p>
                     <p>Some contents...</p>
                 </Drawer>
